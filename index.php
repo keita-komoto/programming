@@ -19,7 +19,7 @@
         <h1><img src="diblog_logo.jpg"></h1>
         <div class="menu">
             <ul>
-                <li><a href="#">トップ</a></li>
+                <li><a href="index.php">トップ</a></li>
                 <li><a href="#">プロフィール</a></li>
                 <li><a href="#">D.I.Blogについて</a></li>
                 <li><a href="#">登録フォーム</a></li>
