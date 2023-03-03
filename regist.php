@@ -1,15 +1,20 @@
 <?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  if (isset($_POST['text'])) {
-    $isset_status = 'POSTED, isset() True';
-    $text_value = $_POST['text'];
-  } else {
-    $isset_status = 'POSTED, isset() False';
-    $text_value = '';
-  }
-} else {
-  $isset_status = 'started without POST';
-  $text_value = '';
+session_start();
+
+if (!empty($_POST)) {
+    /* 入力情報の不備を検知 */
+    if ($_POST['family_name'] === "") {
+        $error['family_name'] = "blank";
+    }
+    if ($_POST['last_name'] === "") {
+        $error['last_name'] = "blank";
+    }
+    /* エラーがなければ次のページへ */
+    if (!isset($error)) {
+        $_SESSION['join'] = $_POST;   // フォームの内容をセッションで保存
+        header('Location: regist_confirm.php');   // regist_confirm.phpへ移動
+        exit();
+    }
 }
 ?>
 
@@ -57,7 +62,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label>名前（姓）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name" required>
+                                <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name">
+                                <?php if (!empty($error["family_name"]) && $error['family_name'] === 'blank'): ?>
+                                    <p class="error">名前（姓）が未入力です。</p>
+                                <?php endif ?>
+                                <!-- <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name" value="<?php echo $_POST['family_name'] ?>" required> -->
                             </div>
                         </div>
                         <div class="reg_box">
