@@ -2,38 +2,23 @@
 session_start();
 
 function kakunou ($str) {
-    return '$'.$str.' = '.'$_SESSION['."'".$str."'".']';
+    return '$'.$str.' = '.'$_SESSION['."'".$str."'".'];';
 }
 
 if(isset($_POST['submit'])) {
-    $_SESSION = $_POST;
-    $family_name = $_SESSION['family_name'];
-    $last_name = $_SESSION['last_name'];
-    $family_name_kana = $_SESSION['family_name_kana'];
-    $last_name_kana = $_SESSION['last_name_kana'];
-    $mail = $_SESSION['mail'];
-    $password = $_SESSION['password'];
-    $gender = $_SESSION['gender'];
-    $postal_code = $_SESSION['postal_code'];
-    $prefecture = $_SESSION['prefecture'];
-    $address_1 = $_SESSION['address_1'];
-    $address_2 = $_SESSION['address_2'];
-    $authority = $_SESSION['authority'];
-    header("Location:http://localhost/diworks/programming/regist_confirm.php");
-}
-if(isset($_GET['action'])){
-    $family_name = $_SESSION['family_name'];
-    $last_name = $_SESSION['last_name'];
-    $family_name_kana = $_SESSION['family_name_kana'];
-    $last_name_kana = $_SESSION['last_name_kana'];
-    $mail = $_SESSION['mail'];
-    $password = $_SESSION['password'];
-    $gender = $_SESSION['gender'];
-    $postal_code = $_SESSION['postal_code'];
-    $prefecture = $_SESSION['prefecture'];
-    $address_1 = $_SESSION['address_1'];
-    $address_2 = $_SESSION['address_2'];
-    $authority = $_SESSION['authority'];
+    $_SESSION = $_POST;  
+    kakunou('family_name');
+    kakunou('last_name');
+    kakunou('family_name_kana');
+    kakunou('last_name_kana');
+    kakunou('mail');
+    kakunou('passwaord');
+    kakunou('gender');
+    kakunou('postalcode');
+    kakunou('prefecture');
+    kakunou('address_1');
+    kakunou('address_2');
+    kakunou('authority');
 }
 
 $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県', '新潟県','富山県','石川県','福井県', '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県');   
@@ -76,8 +61,11 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>名前（姓）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name"
-                                value="<?php if(isset($family_name)) {echo $family_name ;} ?>" required>
+                                <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name">
+                                <?php if (!empty($error['family_name']) && $error['family_name'] === 'blank'): ?>
+                                    <p class="error">名前（姓）が未入力です。</p>
+                                <?php endif ?>
+                                <!-- <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name" value="<?php echo $_POST['family_name'] ?>" required> -->
                             </div>
                         </div>
                         <div class="reg_box">
@@ -85,8 +73,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>名前（名）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="last_name" maxlength="10" autocomplete="given-name"
-                                value="<?php if(isset($last_name)) {echo $last_name ;} ?>" required>
+                                <input type="text" class="text" name="last_name" maxlength="10" autocomplete="given-name" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -94,8 +81,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>カナ（姓）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="family_name_kana" maxlength="10"
-                                value="<?php if(isset($family_name_kana)) {echo $family_name_kana ;} ?>" required>
+                                <input type="text" class="text" name="family_name_kana" maxlength="10" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -103,8 +89,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>カナ（名）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="last_name_kana" maxlength="10"
-                                value="<?php if(isset($last_name_kana)) {echo $last_name_kana ;} ?>" required>
+                                <input type="text" class="text" name="last_name_kana" maxlength="10" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -112,9 +97,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>メールアドレス</label>
                             </div>
                             <div class="reg_right">
-                                <input type="email" class="text" name="mail" maxlength="100"
-                                value="<?php if(isset($mail)) {echo $mail ;} ?>" required>
-
+                                <input type="email" class="text" name="mail" maxlength="100" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -122,8 +105,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>パスワード</label>
                             </div>
                             <div class="reg_right">
-                                <input type="password" class="text" name="password" maxlength="10"
-                                value="<?php if(isset($password)) {echo $password ;} ?>" required>
+                                <input type="password" class="text" name="password" maxlength="10" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -131,8 +113,8 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>性別</label>
                             </div>
                             <div class="reg_right">
-                                <input type="radio" class="radio" name="gender" value="0" required <?php if(isset($gender) && $gender === "0"){echo "checked";} else {echo "checked";} ?> >男
-                                <input type="radio" class="radio" name="gender" value="1" required <?php if(isset($gender) && $gender === "1"){echo "checked";} ?> >女
+                                <input type="radio" class="radio" name="gender" value="0" required checked>男
+                                <input type="radio" class="radio" name="gender" value="1" required>女
                             </div>
                         </div>
                         <div class="reg_box">
@@ -140,8 +122,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>郵便番号</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="postal_code" maxlength="7"
-                                value="<?php if(isset($postal_code)) {echo $postal_code ;} ?>" required>
+                                <input type="text" class="text" name="postal_code" maxlength="7" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -150,17 +131,13 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                             <div class="reg_right">
                                 <select name="prefecture">
-
-                                <?php for($i = 0; $i < 47; $i++ ) {
-                                    echo '<option value="'.$i.'"';
-                                    if(isset($prefecture) && $prefecture == $i) {
-                                        echo 'selected';
+                                    <option value="" selected></option>
+                                    <?php for($i = 0; $i < 47; $i++ ) {
+                                        echo "<option value='$i'>";
+                                        echo $pref_array[$i];
+                                        echo '</option>';
                                     };
-                                    echo '>';
-                                    echo $pref_array[$i];
-                                    echo '</option>';
-                                }
-                                ?> 
+                                    ?> 
                                 </select>
                             </div>
                         </div>
@@ -169,8 +146,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>住所（市区町村）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="address_1" maxlength="10"
-                                value="<?php if(isset($address_1)) {echo $address_1 ;} ?>" required>
+                                <input type="text" class="text" name="address_1" maxlength="10" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -178,8 +154,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>住所（番地）</label>
                             </div>
                             <div class="reg_right">
-                                <input type="text" class="text" name="address_2" maxlength="100"
-                                value="<?php if(isset($address_2)) {echo $address_2 ;} ?>" required>
+                                <input type="text" class="text" name="address_2" maxlength="100" required>
                             </div>
                         </div>
                         <div class="reg_box">
@@ -188,8 +163,8 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                             <div class="reg_right">
                                 <select name="authority">
-                                    <option value="0" <?php if(isset($authority) && $authority == 0 ){echo 'selected';} ?> >一般</option>
-                                    <option value="1" <?php if(isset($authority) && $authority == 1 ){echo 'selected';} ?> >管理者</option>
+                                    <option value="0" selected>一般</option>
+                                    <option value="1">管理者</option>
                                 </select>
                             </div>
                         </div>
