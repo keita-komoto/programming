@@ -5,6 +5,8 @@ function kakunou ($str) {
     return '$'.$str.' = '.'$_SESSION['."'".$str."'".']';
 }
 
+$pw_pt = "/^[0-9A-Za-z]+$/";
+
 if(isset($_POST['submit'])) {
     $_SESSION = $_POST;
     $family_name = $_SESSION['family_name'];
@@ -19,7 +21,18 @@ if(isset($_POST['submit'])) {
     $address_1 = $_SESSION['address_1'];
     $address_2 = $_SESSION['address_2'];
     $authority = $_SESSION['authority'];
-    header("Location:http://localhost/diworks/programming/regist_confirm.php");
+    $errors = [];
+
+    if (empty($password)) {
+        $errors['password'] = "パスワードが未入力です";
+    } elseif (preg_match($pw_pt, $password) === 0 ) { 
+        $errors['password'] = "パスワードを英数字で入力してください";
+    }
+    if(count($errors) === 0 ) {
+        header("Location:http://localhost/diworks/programming/regist_confirm.php");
+    }
+    
+    
 }
 if(isset($_GET['action'])){
     $family_name = $_SESSION['family_name'];
@@ -77,7 +90,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                             <div class="reg_right">
                                 <input type="text" class="text" name="family_name" maxlength="10" autocomplete="family-name"
-                                value="<?php if(isset($family_name)) {echo $family_name ;} ?>" required>
+                                value="<?php if(isset($family_name)) {echo $family_name ;} ?>" patttern="[\u4E00-\u9FFF\u3040-\u309Fー]*">
                             </div>
                         </div>
                         <div class="reg_box">
@@ -123,7 +136,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                             <div class="reg_right">
                                 <input type="password" class="text" name="password" maxlength="10"
-                                value="<?php if(isset($password)) {echo $password ;} ?>" required>
+                                value="<?php if(isset($password)) {echo $password ;} ?>">
                             </div>
                         </div>
                         <div class="reg_box">
