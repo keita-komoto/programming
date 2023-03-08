@@ -6,7 +6,6 @@ $pdo = new PDO(
     'root',
     '',
 );
-
 $hash = password_hash($_SESSION['password'], PASSWORD_DEFAULT);
 
 print_r($pdo -> errorInfo());
