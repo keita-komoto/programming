@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-
-// function kakunouが使えない？
 if ( isset($_SESSION['family_name'])){
     $family_name = $_SESSION['family_name'];
     $last_name = $_SESSION['last_name'];

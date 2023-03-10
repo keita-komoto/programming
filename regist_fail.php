@@ -1,5 +1,21 @@
 <?php
 
+session_start();
+
+if ( isset($_SESSION['family_name'])){
+    $family_name = $_SESSION['family_name'];
+    $last_name = $_SESSION['last_name'];
+    $family_name_kana = $_SESSION['family_name_kana'];
+    $last_name_kana = $_SESSION['last_name_kana'];
+    $mail = $_SESSION['mail'];
+    $password = $_SESSION['password'];
+    $gender = $_SESSION['gender'];
+    $postal_code = $_SESSION['postal_code'];
+    $prefecture = $_SESSION['prefecture'];
+    $address_1 = $_SESSION['address_1'];
+    $address_2 = $_SESSION['address_2'];
+    $authority = $_SESSION['authority'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -31,9 +47,22 @@
                 <div class="kanryo">
                     <h3 class="error">エラーが発生したためアカウント登録できません。</h3>
                 </div>
-                <div>
+
+                <div class="btn-box">
                     <form method="post" action="index.php">
-                        <input type="submit" class="submit" name="submit" value="TOPへ戻る">
+                        <input type="hidden" value="<?php echo $family_name ;?>" name="family_name">
+                        <input type="hidden" value="<?php echo $last_name ;?>" name="last_name">
+                        <input type="hidden" value="<?php echo $family_name_kana ;?>" name="family_name_kana">
+                        <input type="hidden" value="<?php echo $last_name_kana ;?>" name="last_name_kana">
+                        <input type="hidden" value="<?php echo $mail ;?>" name="mail">
+                        <input type="hidden" value="<?php echo $password ;?>" name="password">
+                        <input type="hidden" value="<?php echo $gender ;?>" name="gender">
+                        <input type="hidden" value="<?php echo $postal_code ;?>" name="postal_code">
+                        <input type="hidden" value="<?php echo $prefecture ;?>" name="prefecture">
+                        <input type="hidden" value="<?php echo $address_1 ;?>" name="address_1">
+                        <input type="hidden" value="<?php echo $address_2 ;?>" name="address_2">
+                        <input type="hidden" value="<?php echo $authority ;?>" name="authority">
+                        <input type="submit" class="submit" name="submit" value="前に戻る">
                     </form>
                 </div>
             </div>
