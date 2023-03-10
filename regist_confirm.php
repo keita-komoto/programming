@@ -174,10 +174,9 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 <input type="hidden" value="<?php echo $address_1 ;?>" name="address_1">
                 <input type="hidden" value="<?php echo $address_2 ;?>" name="address_2">
                 <input type="hidden" value="<?php echo $authority ;?>" name="authority">
-                <input type="submit" class="button" name="submit" value="前に戻る">
+                <input type="submit" class="submit" name="submit" value="前に戻る">
             </form>
-            <form action="regist_insert.php">
-                <input type="submit" class="button" value="登録する">
+            <form method="post" action="regist_insert.php">
                 <input type="hidden" value="<?php echo $family_name ;?>" name="family_name">
                 <input type="hidden" value="<?php echo $last_name ;?>" name="last_name">
                 <input type="hidden" value="<?php echo $family_name_kana ;?>" name="family_name_kana">
@@ -190,6 +189,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 <input type="hidden" value="<?php echo $address_1 ;?>" name="address_1">
                 <input type="hidden" value="<?php echo $address_2 ;?>" name="address_2">
                 <input type="hidden" value="<?php echo $authority ;?>" name="authority">
+                <input type="submit" class="submit" value="登録する">
             </form>
         </div>
     </main>

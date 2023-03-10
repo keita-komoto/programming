@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+html *,
+::before,
+::after {
+  box-sizing: border-box;
+}
+.reg_box {
+    display: flex;
+    width: 75%;
+    margin: 0 auto;
+    background-color: #eee;
+    padding-bottom: 1.5rem;
+}
+.reg_left {
+    width: 50%;
+    text-align: end;
+    padding-right: 20px;
+}
+.reg_right {
+    width: 50%;
+}
+.reg_right label {
+    color: red;
+}
+.error {
+    color: red;
+}
+.btn-box {
+    background-color: #eee;
+    justify-items: center;
+    width: 75%;
+    margin: 0 auto;
+    display: flex;
+
+}
+.btn-box .submit { 
+    margin: 20px auto;
+}
+.btn-box form {
+    margin: 0 auto;
+}
