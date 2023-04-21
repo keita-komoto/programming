@@ -1,15 +1,12 @@
 <?php
 session_start();
 
-function kakunou ($str) {
-    return '$'.$str.' = '.'$_SESSION['."'".$str."'".']';
-}
 //バリデーションパターン
 $name_pt = "/^[ぁ-んー一-龠]+$/u";
 $kana_pt = "/^[ァ-ヶー]+$/u";
 $pw_pt = "/^[a-zA-Z0-9]+$/";
 $mail_pt = "/^[a-zA-Z0-9@.-]+$/";
-$post_pt = "/^[0-9]{7}+$/";
+$post_pt = "/^[0-9]{3}(?:[0-9]{4})+$/";
 $adrs_pt = "/^[ぁ-んー一-龠ァ-ヶ0-9 　０-９-]+$/";
 
 //登録ボタンが押されたら
@@ -29,50 +26,50 @@ if(isset($_POST['submit'])) {
     $authority = $_SESSION['authority'];
     //エラー内容
     $errors = [];
-    if (empty($family_name)) {
+    if (isset($family_name) && $family_name === '') {
         $errors['family_name'] = "名前（姓）が未入力です";
     } elseif (preg_match($name_pt, $family_name) === 0 ) { 
         $errors['family_name'] = "ひらがなと漢字で入力してください";
     }
-    if (empty($last_name)) {
+    if (isset($last_name) && $last_name === '') {
         $errors['last_name'] = "名前（名）が未入力です";
     } elseif (preg_match($name_pt, $last_name) === 0 ) { 
         $errors['last_name'] = "ひらがなと漢字で入力してください";
     }
-    if (empty($family_name_kana)) {
+    if (isset($family_name_kana) && $family_name_kana === '') {
         $errors['family_name_kana'] = "カナ（姓）が未入力です";
     } elseif (preg_match($kana_pt, $family_name_kana) === 0 ) { 
-        $errors['family_name_kana'] = "カタカナで入力してください";
+        $errors['family_name_kana'] = "全角カタカナで入力してください";
     }
-    if (empty($last_name_kana)) {
+    if (isset($last_name_kana) && $last_name_kana === '') {
         $errors['last_name_kana'] = "カナ（名）が未入力です";
     } elseif (preg_match($kana_pt, $last_name_kana) === 0 ) { 
-        $errors['last_name_kana'] = "カタカナで入力してください";
+        $errors['last_name_kana'] = "全角カタカナで入力してください";
     }
-    if (empty($password)) {
+    if (isset($password) && $password === '') {
         $errors['password'] = "パスワードが未入力です";
     } elseif (preg_match($pw_pt, $password) === 0 ) { 
         $errors['password'] = "パスワードは英数字のみ使用可能です";
     }
-    if (empty($mail)) {
+    if (isset($mail) && $mail === '') {
         $errors['mail'] = "メールアドレスが未入力です";
     } elseif (preg_match($mail_pt, $mail) === 0 ) { 
         $errors['mail'] = "メールアドレスは英数字と一部の記号のみ使用可能です";
     }
-    if (empty($postal_code)) {
+    if (isset($postal_code) && $postal_code === '') {
         $errors['postal_code'] = "郵便番号が未入力です";
     } elseif (preg_match($post_pt, $postal_code) === 0 ) { 
-        $errors['postal_code'] = "郵便番号は半角数字7桁で入力してください";
+        $errors['postal_code'] = "郵便番号は半角数字3桁か7桁で入力してください";
     }
-    if (empty($prefecture)) {
+    if (isset($prefecture) && $prefecture === ''){
         $errors['prefecture'] = "都道府県が未選択です";
     }
-    if (empty($address_1)) {
+    if (isset($address_1) && $address_1 === '') {
         $errors['address_1'] = "住所（市区町村）が未入力です";
     } elseif (preg_match($adrs_pt, $address_1) === 0 ) { 
         $errors['address_1'] = "住所（市区町村）は、ひらがな、漢字、数字、カタカナと一部の記号が使用可能です";
     }
-    if (empty($address_2)) {
+    if (isset($address_2) && $address_2 === '') {
         $errors['address_2'] = "住所（番地）が未入力です";
     } elseif (preg_match($adrs_pt, $address_2) === 0 ) { 
         $errors['address_2'] = "住所（番地）は、ひらがな、漢字、数字、カタカナと一部の記号が使用可能です";

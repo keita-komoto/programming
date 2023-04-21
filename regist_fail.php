@@ -16,6 +16,7 @@ if ( isset($_SESSION['family_name'])){
     $address_2 = $_SESSION['address_2'];
     $authority = $_SESSION['authority'];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
@@ -49,7 +50,7 @@ if ( isset($_SESSION['family_name'])){
                 </div>
 
                 <div class="btn-box">
-                    <form method="post" action="index.php">
+                    <form method="post" action="regist_confirm.php">
                         <input type="hidden" value="<?php echo $family_name ;?>" name="family_name">
                         <input type="hidden" value="<?php echo $last_name ;?>" name="last_name">
                         <input type="hidden" value="<?php echo $family_name_kana ;?>" name="family_name_kana">
@@ -62,7 +63,7 @@ if ( isset($_SESSION['family_name'])){
                         <input type="hidden" value="<?php echo $address_1 ;?>" name="address_1">
                         <input type="hidden" value="<?php echo $address_2 ;?>" name="address_2">
                         <input type="hidden" value="<?php echo $authority ;?>" name="authority">
-                        <input type="submit" class="submit" name="submit" value="前に戻る">
+                        <input type="submit" class="submit" value="前に戻る">
                     </form>
                 </div>
             </div>

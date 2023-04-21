@@ -5,8 +5,6 @@ function myExceptionHandler ($e) {
 }
 set_exception_handler('myExceptionHandler');
 
-
-
 if ( isset($_SESSION['family_name'])){
     $family_name = $_SESSION['family_name'];
     $last_name = $_SESSION['last_name'];
@@ -27,6 +25,7 @@ $pdo = new PDO(
     '',
     );
     $hash = password_hash($_SESSION['password'], PASSWORD_DEFAULT);
+    date_default_timezone_set('Asia/Tokyo');
     $date = date('Y-m-d H:i:s');
     $pdo -> exec("INSERT INTO account(family_name,last_name,family_name_kana,last_name_kana,
         mail,`password`,gender,
