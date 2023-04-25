@@ -7,7 +7,7 @@ $kana_pt = "/^[ァ-ヶー]+$/u";
 $pw_pt = "/^[a-zA-Z0-9]+$/";
 $mail_pt = "/^[a-zA-Z0-9@.-]+$/";
 $post_pt = "/^[0-9]{3}(?:[0-9]{4})+$/";
-$adrs_pt = "/^[ぁ-んー一-龠ァ-ヶ0-9 　０-９-]+$/";
+$adrs_pt = "/^[0-9０-９ぁ-んァ-ヶー一-龠　\s\-\－]+$/u";
 
 //登録ボタンが押されたら
 if(isset($_POST['submit'])) {
@@ -182,7 +182,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                                 <label>メールアドレス</label>
                             </div>
                             <div class="reg_right">
-                                <input type="email" class="text" name="mail" maxlength="100"
+                                <input type="email" class="text" name="mail" maxlength="100" title="メールアドレスの形式で入力してください。"
                                 value="<?php if(isset($mail)) {echo $mail ;} ?>">
                                 <?php if(isset($errors['mail'])) {
                                      echo "<br><label>".$errors['mail']."</label>";
