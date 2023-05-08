@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+html *,
+::before,
+::after {
+  box-sizing: border-box;
+}
+table {
+  margin:10px auto;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid black;
+  padding: 0.5rem;
+}
+td {
+  text-align: center;
+}
+td.mail {
+  text-align: left;
+}

@@ -36,8 +36,9 @@ if ( isset($_SESSION['family_name'])){
                 <li><a href="#">D.I.Blogについて</a></li>
                 <li><a href="#">登録フォーム</a></li>
                 <li><a href="#">問い合わせ</a></li>
-                <li><a href="regist.php">アカウント登録</a></li>
                 <li><a href="#">その他</a></li>
+                <li><a href="regist.php">アカウント登録</a></li>
+                <li><a href="list.php">アカウント一覧</a></li>
             </ul>
         </div>
     </header>

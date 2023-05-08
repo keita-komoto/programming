@@ -14,6 +14,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
     <title>D.I.Worksblog アカウント登録</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="style_reg.css">
+    <link rel="stylesheet" type="text/css" href="style_list.css">
 </head>
 <body>
     <header>
@@ -46,7 +47,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 <th>削除フラグ</th>
                 <th>登録日時</th>
                 <th>更新日時</th>
-                <th>操作</th>
+                <th colspan="2">操作</th>
             </tr>
             <?php 
             $pdo = new PDO(
@@ -55,7 +56,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 '',
                 );
             $sql = 'SELECT * FROM account ORDER BY id DESC';
-            $stmt = $pdo->query("SELECT * FROM account");
+            $stmt = $pdo->query($sql);
             while ($account = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 echo '<tr>';
                 echo '<td>' . $account['id'] . '</td>';
@@ -63,7 +64,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 echo '<td>' . $account['last_name'] . '</td>';
                 echo '<td>' . $account['family_name_kana'] . '</td>';
                 echo '<td>' . $account['last_name_kana'] . '</td>';
-                echo '<td>' . $account['mail'] . '</td>';
+                echo '<td class="mail">' . $account['mail'] . '</td>';
                 echo '<td>' . ($account['gender'] == 0 ? '男' : '女') . '</td>';
                 echo '<td>' . ($account['authority'] == 0 ? '一般' : '管理者') . '</td>';
                 echo '<td>' . ($account['delete_flag'] == 0 ? '有効' : '無効') . '</td>';
@@ -73,7 +74,6 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 echo '<td><a href="delete.php?id=' . $account['id'] . '">削除</a></td>';
                 echo '</tr>';
             }
-            // MySQLとの接続を切断する
             $pdo = null; ?>
         </table>
     </main>
