@@ -70,8 +70,16 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 echo '<td>' . ($account['delete_flag'] == 0 ? '有効' : '無効') . '</td>';
                 echo '<td>' . date('Y年m月d日', strtotime($account['registered_time'])) . '</td>';
                 echo '<td>' . date('Y年m月d日', strtotime($account['update_time'])) . '</td>';
-                echo '<td><a href="update.php?id=' . $account['id'] . '">更新</a></td>';
-                echo '<td><a href="delete.php?id=' . $account['id'] . '">削除</a></td>';
+                echo '<td>
+                    <form method="post" action="update.php?id=' . $account['id'] . '">
+                        <input type="submit" class="submit" name="submit" value="更新">
+                    </form>
+                </td>';
+                echo '<td>
+                    <form method="post" action="delete.php?id=' . $account['id'] . '">
+                        <input type="submit" class="submit" name="submit" value="削除">
+                    </form>
+                </td>';
                 echo '</tr>';
             }
             $pdo = null; ?>
