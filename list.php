@@ -68,8 +68,8 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 echo '<td>' . ($account['gender'] == 0 ? '男' : '女') . '</td>';
                 echo '<td>' . ($account['authority'] == 0 ? '一般' : '管理者') . '</td>';
                 echo '<td>' . ($account['delete_flag'] == 0 ? '有効' : '無効') . '</td>';
-                echo '<td>' . date('Y年m月d日', strtotime($account['registered_time'])) . '</td>';
-                echo '<td>' . date('Y年m月d日', strtotime($account['update_time'])) . '</td>';
+                echo '<td>' . date('Y/m/d', strtotime($account['registered_time'])) . '</td>';
+                echo '<td>' . date('Y/m/d', strtotime($account['update_time'])) . '</td>';
                 echo '<td>
                     <form method="post" action="update.php?id=' . $account['id'] . '">
                         <input type="submit" class="submit" name="submit" value="更新">
