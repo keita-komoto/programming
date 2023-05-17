@@ -33,7 +33,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
         </div>
     </header>
     <main>
-        <h1>アカウント一覧</h1>
+        <h2>アカウント一覧</h2>
         <table>
             <tr>
                 <th>ID</th>
