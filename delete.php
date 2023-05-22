@@ -4,8 +4,6 @@
 
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
-} if(isset($_GET['id'])) {
-    $id = $_GET['id'];
 } else {
     echo "アカウントが見つかりませんでした";
 }
@@ -24,10 +22,10 @@ $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $stmt->execute();
 
 // 結果を取得
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$account = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // 結果を変数へ展開
-extract($user, $flags = EXTR_OVERWRITE, $prefix = "");
+extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
 
 $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県', '新潟県','富山県','石川県','福井県', '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県');   
 ?>
@@ -172,18 +170,6 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
             <div class="btn-box">
                 <form method="post" action="delete_confirm.php">
                     <input type="hidden" value="<?php echo $id ;?>" name="id">               
-                    <input type="hidden" value="<?php echo $family_name ;?>" name="family_name">
-                    <input type="hidden" value="<?php echo $last_name ;?>" name="last_name">
-                    <input type="hidden" value="<?php echo $family_name_kana ;?>" name="family_name_kana">
-                    <input type="hidden" value="<?php echo $last_name_kana ;?>" name="last_name_kana">
-                    <input type="hidden" value="<?php echo $mail ;?>" name="mail">
-                    <input type="hidden" value="<?php echo $password ;?>" name="password">
-                    <input type="hidden" value="<?php echo $gender ;?>" name="gender">
-                    <input type="hidden" value="<?php echo $postal_code ;?>" name="postal_code">
-                    <input type="hidden" value="<?php echo $prefecture ;?>" name="prefecture">
-                    <input type="hidden" value="<?php echo $address_1 ;?>" name="address_1">
-                    <input type="hidden" value="<?php echo $address_2 ;?>" name="address_2">
-                    <input type="hidden" value="<?php echo $authority ;?>" name="authority">
                     <input type="submit" class="submit" name="submit" value="確認する">
                 </form>
             </div>
