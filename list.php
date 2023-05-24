@@ -75,7 +75,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 }
                 echo '</td>';
                 echo '<td>
-                    <form method="post" action="update.php">
+                    <form method="post" action="update.php?edit=1">
                         <input type="hidden" value="' . $account['id'] . '" name="id">               
                         <input type="submit" class="submit" name="submit" value="確認する">
                     </form>
