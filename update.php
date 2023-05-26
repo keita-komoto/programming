@@ -1,26 +1,30 @@
 <?php
-// 遷移前ページから渡されたIDを取得
-if(isset($_GET['edit'])){
+session_start();
+
+if(isset($_GET['edit'])) {
+    // 遷移前ページから渡されたIDを取得
     if(isset($_POST['id'])) {
+        $pdo = new PDO(
+            'mysql:dbname=programming;host=localhost;charset=utf8mb4',
+            'root',
+            '',
+        );   
         $id = $_POST['id'];
+        // アカウント情報を取得するクエリを準備
+        $sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        // クエリを実行
+        $stmt->execute();
+        // 結果を取得
+        $account = $stmt->fetch(PDO::FETCH_ASSOC);
+        // 結果を変数へ展開
+        extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
     } else {
-        echo "アカウントが見つかりませんでした";
+        // IDがなければconfirmからの遷移
+        extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
     }
-    $pdo = new PDO(
-        'mysql:dbname=programming;host=localhost;charset=utf8mb4',
-        'root',
-        '',
-    );
-    // アカウント情報を取得するクエリを準備
-    $sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-    // クエリを実行
-    $stmt->execute();
-    // 結果を取得
-    $account = $stmt->fetch(PDO::FETCH_ASSOC);
-    // 結果を変数へ展開
-    extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
+
 }
 
 //バリデーションパターン
@@ -86,6 +90,7 @@ if(isset($_POST['submit2'])) {
     }
     //エラーなければ確認画面へ
     if(count($errors) === 0 ) {
+        $_SESSION = $_POST;
         header("Location:http://localhost/diworks/programming/update_confirm.php");
     }   
 }
