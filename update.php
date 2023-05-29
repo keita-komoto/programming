@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-if(isset($_GET['edit'])) {
+if(isset($_GET['edit']) && $_GET['edit'] == 1) {
     // 遷移前ページから渡されたIDを取得
-    if(isset($_POST['id'])) {
         $pdo = new PDO(
             'mysql:dbname=programming;host=localhost;charset=utf8mb4',
             'root',
             '',
-        );   
+        );
         $id = $_POST['id'];
         // アカウント情報を取得するクエリを準備
         $sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
@@ -20,11 +19,9 @@ if(isset($_GET['edit'])) {
         $account = $stmt->fetch(PDO::FETCH_ASSOC);
         // 結果を変数へ展開
         extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
-    } else {
-        // IDがなければconfirmからの遷移
-        extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
-    }
-
+} else {
+    // IDがなければconfirmからの遷移
+    extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
 }
 
 //バリデーションパターン
@@ -90,7 +87,10 @@ if(isset($_POST['submit2'])) {
     }
     //エラーなければ確認画面へ
     if(count($errors) === 0 ) {
-        $_SESSION = $_POST;
+        //POSTを格納しないと次に渡せない
+        foreach ($_POST as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
         header("Location:http://localhost/diworks/programming/update_confirm.php");
     }   
 }
@@ -291,6 +291,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                         </div>
                         <div class="btn-box">
+                            <input type="hidden" value="<?php echo $id ;?>" name="id">
                             <input type="submit" class="submit" name="submit2" value="確認する">
                         </div>
                     </form>
