@@ -100,11 +100,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                 <div class="reg_left">
                     <label>パスワード</label>
                 </div>
-                <div class="reg_right">
-                    <?php for ($i = 0; $i < mb_strlen($password); $i++){
-                        echo "●";
-                    } ?>
-                </div>
+                <div class="reg_right"><span class="passmoji">パスワードは表示できません</span></div>
             </div>
             <div class="reg_box">
                 <div class="reg_left">

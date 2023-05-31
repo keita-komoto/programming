@@ -28,12 +28,12 @@
     <main>
         <div class="regist">
             <div class="regist-contents">
-                <h2>アカウント削除完了画面</h2>
+                <h2>アカウント更新完了画面</h2>
                 <div class="kanryo">
                     <?php if(isset($_GET['success'])) {
-                        echo "<h3>登録完了しました</h3>";
+                        echo "<h3>更新完了しました</h3>";
                     } else {
-                        echo '<h3 class="error">エラーが発生したためアカウント削除できません。</h3>';
+                        echo '<h3 class="error">エラーが発生したためアカウント更新できません。</h3>';
                     } ?>
                 </div>
                 <div class="btn-box">

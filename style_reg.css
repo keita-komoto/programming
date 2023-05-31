@@ -20,6 +20,9 @@ html *,
 .reg_right {
     width: 50%;
 }
+.reg_right span{
+    font-size: 0.75rem;
+}
 .reg_right label {
     color: red;
 }
