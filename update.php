@@ -20,14 +20,14 @@ if(isset($_GET['edit']) && $_GET['edit'] == 1) {
         // 結果を変数へ展開
         extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
 } else {
-    // IDがなければconfirmからの遷移
     extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
 }
 
 //バリデーションパターン
 $name_pt = "/^[ぁ-んー一-龠]+$/u";
 $kana_pt = "/^[ァ-ヶー]+$/u";
-$pw_pt = "/^[a-zA-Z0-9]+$/";
+//空欄許可
+$pw_pt = "/^[a-zA-Z0-9]*$/";
 $mail_pt = "/^[a-zA-Z0-9@.-]+$/";
 $post_pt = "/^[0-9]{3}([0-9]{4})?$/";
 $adrs_pt = "/^[0-9０-９ぁ-んァ-ヶー一-龠　－\-\s]+$/u";
@@ -57,9 +57,7 @@ if(isset($_POST['submit2'])) {
     } elseif (preg_match($kana_pt, $last_name_kana) === 0 ) { 
         $errors['last_name_kana'] = "全角カタカナで入力してください";
     }
-    if (isset($password) && $password === '') {
-        $errors['password'] = "パスワードが未入力です";
-    } elseif (preg_match($pw_pt, $password) === 0 ) { 
+    if (preg_match($pw_pt, $password) === 0 ) { 
         $errors['password'] = "パスワードは英数字のみ使用可能です";
     }
     if (isset($mail) && $mail === '') {
@@ -103,7 +101,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>D.I.Worksblog アカウント登録</title>
+    <title>D.I.Worksblog アカウント更新</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="style_reg.css">
 </head>
@@ -126,7 +124,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
     <main>
         <div class="regist">
             <div class="regist-contents">
-                <h2>アカウント登録画面</h2>
+                <h2>アカウント更新画面</h2>
                 <div class="reg-container">
                     <form method="post" action="update.php">
                         <div class="reg_box">
@@ -195,7 +193,12 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                             </div>
                             <div class="reg_right">
                                 <input type="password" class="text" name="password" maxlength="10"
-                                value="<?php if(isset($password)) {echo $password ;} ?>">
+                                value="<?php 
+                                if(isset($_GET['edit']) && $_GET['edit'] == 1) {
+                                    echo "";
+                                } else {
+                                    echo $password;
+                                } ?>">
                                 <?php if(isset($errors['password'])) {
                                      echo "<br><label>".$errors['password']."</label>";
                                 } ?>

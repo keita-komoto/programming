@@ -79,9 +79,11 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
                     <label>パスワード</label>
                 </div>
                 <div class="reg_right">
-                    <?php for ($i = 0; $i < mb_strlen($password); $i++){
+                    <?php if (empty($password)){
+                        echo "変更なし";
+                    } else { for ($i = 0; $i < mb_strlen($password); $i++){
                         echo "●";
-                    } ?>
+                    }} ?>
                 </div>
             </div>
             <div class="reg_box">
