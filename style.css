@@ -75,9 +75,9 @@ h3 {
     padding-bottom: 5px;
     font-size: 20px;
 }
+
 h3::before {
     content: "";
-    border-left:4px red solid;
     margin-right: 5px;
 }
 h4 {
