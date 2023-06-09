@@ -35,7 +35,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
         </div>
     </header>
     <main>
-        <h2>アカウント削除画面</h2>
+        <h2>アカウント削除確認画面</h2>
         <div class="delete">
             <p class="dai">本当に削除してよろしいですか？</p>
             <div class="btn-box">
