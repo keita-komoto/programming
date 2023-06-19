@@ -2,6 +2,7 @@
 session_start();
 
 if(isset($_GET['edit']) && $_GET['edit'] == 1) {
+    try {
     // 遷移前ページから渡されたIDを取得
         $pdo = new PDO(
             'mysql:dbname=programming;host=localhost;charset=utf8mb4',
@@ -10,7 +11,7 @@ if(isset($_GET['edit']) && $_GET['edit'] == 1) {
         );
         $id = $_POST['id'];
         // アカウント情報を取得するクエリを準備
-        $sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
+        $sql = 'SELECT * FROM account WHERE id = :id ';
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         // クエリを実行
@@ -19,6 +20,10 @@ if(isset($_GET['edit']) && $_GET['edit'] == 1) {
         $account = $stmt->fetch(PDO::FETCH_ASSOC);
         // 結果を変数へ展開
         extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
+    } catch (PDOException $e) {
+        header("Location:http://localhost/diworks/programming/db_fail.php?");
+    }
+
 } else {
     extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
 }

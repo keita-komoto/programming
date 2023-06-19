@@ -5,25 +5,28 @@
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
 } 
-$pdo = new PDO(
-    'mysql:dbname=programming;host=localhost;charset=utf8mb4',
-    'root',
-    '',
-    );
-// アカウント情報を取得するクエリを準備
-$sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
-$stmt = $pdo->prepare($sql);
-$stmt->bindValue(':id', $id, PDO::PARAM_INT);
+try {
+    $pdo = new PDO(
+        'mysql:dbname=programming;host=localhost;charset=utf8mb4',
+        'root',
+        '',
+        );
+    // アカウント情報を取得するクエリを準備
+    $sql = 'SELECT * FROM account WHERE id = :id AND delete_flag = 0';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 
-// クエリを実行
-$stmt->execute();
+    // クエリを実行
+    $stmt->execute();
 
-// 結果を取得
-$account = $stmt->fetch(PDO::FETCH_ASSOC);
+    // 結果を取得
+    $account = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// 結果を変数へ展開
-extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
-
+    //結果を変数へ展開
+    extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
+} catch (PDOException $e) {
+    header("Location:http://localhost/diworks/programming/db_fail.php?");
+}
 $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県','山形県','福島県', '新潟県','富山県','石川県','福井県', '茨城県','栃木県','群馬県','埼玉県','千葉県','東京都','神奈川県','山梨県','長野県','岐阜県','静岡県','愛知県','三重県','滋賀県','京都府','大阪府','兵庫県','奈良県','和歌山県','鳥取県','島根県','岡山県','広島県','山口県','徳島県','香川県','愛媛県','高知県','福岡県','佐賀県','長崎県','熊本県','大分県','宮崎県','鹿児島県','沖縄県');   
 ?>
 
@@ -32,7 +35,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>D.I.Worksblog アカウント登録</title>
+    <title>D.I.Worksblog アカウント削除</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="style_reg.css">
     <link rel="stylesheet" type="text/css" href="style_list.css">
