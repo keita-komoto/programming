@@ -1,11 +1,12 @@
 <?php
-
+session_start();
+session_destroy();
 ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>D.I.Worksblog アカウント登録</title>
+    <title>D.I.Worksblog アカウント更新</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="style_reg.css">
 </head>

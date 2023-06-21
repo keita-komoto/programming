@@ -21,7 +21,7 @@ if(isset($_GET['edit']) && $_GET['edit'] == 1) {
         // 結果を変数へ展開
         extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
     } catch (PDOException $e) {
-        header("Location:http://localhost/diworks/programming/db_fail.php?");
+        header("Location:http://localhost/diworks/programming/fail.php?st=err");
     }
 
 } else {

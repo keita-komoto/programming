@@ -1,11 +1,13 @@
 <?php
 
+session_start();
+
 ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>D.I.Worksblog アカウント更新</title>
+    <title>D.I.Worksblog エラー</title>
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="style_reg.css">
 </head>
@@ -28,14 +30,25 @@
     <main>
         <div class="regist">
             <div class="regist-contents">
-                <h2>読み込みエラー</h2>
+                <h2>エラー</h2>
                 <div class="kanryo">
-                    <h3 class="error">入力した情報の読み込みに失敗しました</h3>
+                    <h3 class="error">
+                        <?php if (isset($_GET['st'])){
+                            if ($_GET['st'] == "err" ) {
+                                echo "データの呼び出しに失敗しました";
+                            } elseif ($_GET['st'] == "confirm") {
+                                echo "データの呼び出しに失敗しました";
+                            }
+                        } else {
+                            echo "エラー画面";
+                        }
+                        ?>
+                    </h3>
                 </div>
 
                 <div class="btn-box">
                     <form method="post" action="list.php">
-                        <input type="submit" class="submit" value="一覧に戻る">
+                        <input type="submit" class="submit" value="一覧へ戻る">
                     </form>
                 </div>
             </div>
