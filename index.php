@@ -1,3 +1,12 @@
+<?php
+    $pdo = new PDO(
+        'mysql:dbname=lesson01;host=localhost;charset=utf8mb4',
+        'root',
+        '',
+    );
+    $stmt = $pdo->query("SELECT * FROM diworks_keijiban");
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,30 +15,8 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <?php
-    $pdo = new PDO(
-        'mysql:dbname=lesson01;host=localhost;charset=utf8mb4',
-        'root',
-        '',
-    );
-    $stmt = $pdo->query("SELECT * FROM diworks_keijiban");
-    ?>
 
-    <header>
-        <h1><img src=""></h1>
-        <div class="menu">
-            <ul>
-                <li><a href="index.php">トップ</a></li>
-                <li><a href="#">プロフィール</a></li>
-                <li><a href="#">D.I.Blogについて</a></li>
-                <li><a href="#">登録フォーム</a></li>
-                <li><a href="#">問い合わせ</a></li>
-                <li><a href="#">その他</a></li>
-                <li><a href="regist.php">アカウント登録</a></li>
-                <li><a href="list.php">アカウント一覧</a></li>
-            </ul>
-        </div>
-    </header>
+    <?php include(dirname(__FILE__).'/common/header.php'); ?>
     <main>
         <div class="twoclm">
             <div class="box left">
@@ -63,8 +50,7 @@
                     echo "<div class='handlename'>posted by ".$row['handlename']."</div>";
                     echo "</div>";
                     echo "</div>";
-                }
-                ?>
+                } ?>
             </div>
             <div class="box right">
                 <div class="popular">

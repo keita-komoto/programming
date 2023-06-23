@@ -21,21 +21,7 @@ try {
     <link rel="stylesheet" type="text/css" href="style_list.css">
 </head>
 <body>
-    <header>
-        <h1><img src=""></h1>
-        <div class="menu">
-            <ul>
-                <li><a href="index.php">トップ</a></li>
-                <li><a href="#">プロフィール</a></li>
-                <li><a href="#">D.I.Blogについて</a></li>
-                <li><a href="#">登録フォーム</a></li>
-                <li><a href="#">問い合わせ</a></li>
-                <li><a href="#">その他</a></li>
-                <li><a href="regist.php">アカウント登録</a></li>
-                <li><a href="list.php">アカウント一覧</a></li>
-            </ul>
-        </div>
-    </header>
+    <?php include(dirname(__FILE__).'/common/header.php'); ?>
     <main>
         <h2>アカウント一覧</h2>
         <table>
