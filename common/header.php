@@ -1,4 +1,5 @@
-<?php if(isset($_SESSION['id'])) {
+<?php 
+if(isset($_SESSION['id'])) {
     $id = $_SESSION['id'];
     try {
         $pdo = new PDO(
@@ -34,11 +35,12 @@
                 <li><a href="#">登録フォーム</a></li>
                 <li><a href="#">問い合わせ</a></li>
                 <li><a href="#">その他</a></li>
-                <?php if(isset($authority) && $authority == 1) {
+                <?php if(!isset($authority)) {
+                    echo '<li><a href="./regist.php">アカウント登録</a></li>';
+                } 
+                if (isset($authority) === "1") { 
                     echo '<li><a href="./regist.php">アカウント登録</a></li>';
                     echo '<li><a href="./list.php">アカウント一覧</a></li>';
-                } else { 
-                    echo "";
                 }
                 if(isset($id)){ 
                     echo '<li><a href="#">ログアウト</a></li>';

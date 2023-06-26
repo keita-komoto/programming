@@ -11,19 +11,8 @@ $adrs_pt = "/^[0-9０-９ぁ-んァ-ヶー一-龠　－\-\s]+$/u";
 
 //登録ボタンが押されたら
 if(isset($_POST['submit'])) {
-    $_SESSION = $_POST;
-    $family_name = $_SESSION['family_name'];
-    $last_name = $_SESSION['last_name'];
-    $family_name_kana = $_SESSION['family_name_kana'];
-    $last_name_kana = $_SESSION['last_name_kana'];
-    $mail = $_SESSION['mail'];
-    $password = $_SESSION['password'];
-    $gender = $_SESSION['gender'];
-    $postal_code = $_SESSION['postal_code'];
-    $prefecture = $_SESSION['prefecture'];
-    $address_1 = $_SESSION['address_1'];
-    $address_2 = $_SESSION['address_2'];
-    $authority = $_SESSION['authority'];
+    //変数へ展開
+    extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
     //エラー内容
     $errors = [];
     if (isset($family_name) && $family_name === '') {
@@ -74,8 +63,33 @@ if(isset($_POST['submit'])) {
     } elseif (preg_match($adrs_pt, $address_2) === 0 ) { 
         $errors['address_2'] = "住所（番地）は、ひらがな、漢字、数字、カタカナと一部の記号が使用可能です";
     }
+    //メールアドレス重複チェック
+    try {
+        $pdo = new PDO(
+            'mysql:dbname=programming;host=localhost;charset=utf8mb4',
+            'root',
+            '',
+        );
+    } catch (PDOException $e) {
+        echo "エラーが発生したため情報を取得できません。：";
+        //echo $e->getMessage();
+    }
+
+    $sql = "SELECT * FROM account WHERE mail = :mail";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':mail', $mail);
+    $stmt->execute();
+    $existingAccount = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($existingAccount) {
+        // メールアドレスが既に存在する場合はエラーメッセージを表示して登録中止
+        $errors['mail'] = "既に存在するメールアドレスです";
+    }
+
     //エラーなければ確認画面へ
     if(count($errors) === 0 ) {
+        foreach ($_POST as $key => $value) {
+            $_SESSION[$key] = $value;
+        }
         header("Location:http://localhost/diworks/programming/regist_confirm.php");
     }   
 }
