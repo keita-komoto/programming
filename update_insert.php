@@ -1,9 +1,9 @@
 <?php
 session_start();
-//function myExceptionHandler ($e) {
-//    header("Location:http://localhost/diworks/programming/update_complete.php");
-//}
-//set_exception_handler('myExceptionHandler');
+function myExceptionHandler ($e) {
+    header("Location:http://localhost/diworks/programming/update_complete.php");
+}
+set_exception_handler('myExceptionHandler');
 
 
 extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
@@ -51,5 +51,4 @@ $stmt->bindValue(':id', $id);
 $stmt->execute();
 
 header("Location:http://localhost/diworks/programming/update_complete.php?success=1");
-exit;
 ?>

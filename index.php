@@ -1,4 +1,5 @@
 <?php
+session_start();
     $pdo = new PDO(
         'mysql:dbname=lesson01;host=localhost;charset=utf8mb4',
         'root',

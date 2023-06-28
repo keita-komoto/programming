@@ -1,32 +1,39 @@
 <?php
 session_start();
+if (isset($_SESSION['login_auth'])) {
+    if ($_SESSION['login_auth'] == 1) {
+        if (isset($_GET['edit']) && $_GET['edit'] == 1) {
+            try {
+                // 遷移前ページから渡されたIDを取得
+                $id = $_POST['id'];
+                // アカウント情報を取得するクエリを準備
+                $pdo = new PDO(
+                    'mysql:dbname=programming;host=localhost;charset=utf8mb4',
+                    'root',
+                    '',
+                );
+                $sql = 'SELECT * FROM account WHERE id = :id ';
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+                // クエリを実行
+                $stmt->execute();
+                // 結果を取得
+                $account = $stmt->fetch(PDO::FETCH_ASSOC);
+                // 結果を変数へ展開
+                extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
 
-if(isset($_GET['edit']) && $_GET['edit'] == 1) {
-    try {
-    // 遷移前ページから渡されたIDを取得
-        $pdo = new PDO(
-            'mysql:dbname=programming;host=localhost;charset=utf8mb4',
-            'root',
-            '',
-        );
-        $id = $_POST['id'];
-        // アカウント情報を取得するクエリを準備
-        $sql = 'SELECT * FROM account WHERE id = :id ';
-        $stmt = $pdo->prepare($sql);
-        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-        // クエリを実行
-        $stmt->execute();
-        // 結果を取得
-        $account = $stmt->fetch(PDO::FETCH_ASSOC);
-        // 結果を変数へ展開
-        extract($account, $flags = EXTR_OVERWRITE, $prefix = "");
-    } catch (PDOException $e) {
-        header("Location:http://localhost/diworks/programming/fail.php?st=err");
-    }
-
+            } catch (PDOException $e) {
+                header("Location:http://localhost/diworks/programming/fail.php?st=err");
+            }
+        } else {
+            extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
+        }
+    } else {
+        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+    } 
 } else {
-    extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
-}
+    header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+} 
 
 //バリデーションパターン
 $name_pt = "/^[ぁ-んー一-龠]+$/u";
@@ -39,6 +46,7 @@ $adrs_pt = "/^[0-9０-９ぁ-んァ-ヶー一-龠　－\-\s]+$/u";
 
 //登録ボタンが押されたら
 if(isset($_POST['submit2'])) {
+
     extract($_POST, $flags = EXTR_OVERWRITE, $prefix = "");
     //エラー内容
     $errors = [];

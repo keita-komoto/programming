@@ -34,7 +34,7 @@ $pdo = new PDO(
         delete_flag,registered_time)
     values(
         '".$_SESSION['family_name']."','".$_SESSION['last_name']."','".$_SESSION['family_name_kana']."','".$_SESSION['last_name_kana']."',
-        '".$_SESSION['mail']."','.$hash.','".$_SESSION['gender']."',
+        '".$_SESSION['mail']."','".$hash."','".$_SESSION['gender']."',
         '".$_SESSION['postal_code']."','".$_SESSION['prefecture']."','".$_SESSION['address_1']."','".$_SESSION['address_2']."',
         '".$_SESSION['authority']."',
         '"."0"."','".$date."');"

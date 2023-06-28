@@ -1,11 +1,14 @@
 <?php
 session_start();
-
+if (isset($_SESSION['login_auth'])) {
+    if (!$_SESSION['login_auth'] == 1) {
+        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+    }
+}
 function login() {
     // POSTを変数に
     $mail = $_POST['mail'];
     $password = $_POST['password'];
-    $hash = password_hash($password, PASSWORD_DEFAULT);
 
     // データベースからアカウント情報を取得する
     try {
@@ -14,40 +17,37 @@ function login() {
             'root',
             '',
         );
-        $sql = "SELECT * FROM account WHERE mail = :mail AND delete_flag = 0 limit 1 ";
+        $sql = "SELECT * FROM account WHERE mail = :mail AND delete_flag = 0";
         $stmt = $pdo->prepare($sql);
         $stmt->bindValue(':mail', $mail);
         $stmt->execute();
         $db = $stmt->fetch(PDO::FETCH_ASSOC);
-        
-    } catch (PDOException $e) {
-        echo "エラーが発生したため情報を取得できません。：";
-        //echo $e->getMessage();
+        if (isset($db)) {
+            $db_password = $db['password'];
+            var_dump($db_password);
+            // ログイン成功の場合はセッションに渡す
+            if (password_verify( $password, $db_password,)) {
+                $_SESSION['login_id'] = $db['id'];
+                $_SESSION['login_auth'] = $db['authority'];
+                // ログイン後のリダイレクト
+                header("Location: http://localhost/diworks/programming/index.php");
+                exit();
+            } else {
+                // パスワードが一致しない場合
+                $error = "パスワードが一致しませんでした";
+                return $error;
+            }
+        } else {
+        // レコードが存在しない場合の処理
+        $error = "メールアドレスが見つかりませんでした";
+        return $error;
+        //var_dump($error);
+        }
+    } catch (PDOException $error) {
+        $error = "エラーが発生したためログイン情報を取得できません。";
+        return $error;
     }
     //var_dump($db);
-    if (isset($db)) {
-        $db_password = $db['password'];
-        var_dump($db_password);
-        var_dump($hash);
-        // ログイン成功の場合はセッションに渡す
-        if (password_verify($hash, $db_password)) {
-            $_SESSION['id'] = $db['id'];
-            // ログイン後のリダイレクト
-            header("Location: http://localhost/diworks/programming/index.php");
-            exit();
-        } else {
-            // パスワードが一致しない場合
-            $error = "パスワードが一致しませんでした";
-            return $error;
-
-        }
-    } else {
-    // レコードが存在しない場合の処理
-    $error = "メールアドレスが見つかりませんでした";
-    return $error;
-    //var_dump($error);
-    }
-
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     login();

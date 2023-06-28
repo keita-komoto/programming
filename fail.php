@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 ?>
@@ -19,11 +18,13 @@ session_start();
                 <h2>エラー</h2>
                 <div class="kanryo">
                     <h3 class="error">
-                        <?php if (isset($_GET['st'])){
+                        <?php if (isset($_GET['st'])) {
                             if ($_GET['st'] == "err" ) {
                                 echo "データの呼び出しに失敗しました";
                             } elseif ($_GET['st'] == "confirm") {
                                 echo "データの呼び出しに失敗しました";
+                            } elseif ($_GET['st'] == "authority") {
+                                echo "管理者権限のアカウントではないため、表示できませんでした";
                             }
                         } else {
                             echo "エラー画面";
