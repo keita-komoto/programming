@@ -1,5 +1,10 @@
 <?php
-
+session_start();
+if (isset($_SESSION['login_auth'])) {
+    if ($_SESSION['login_auth'] === 0) {
+        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="ja">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 function myExceptionHandler ($e) {
     header("Location:http://localhost/diworks/programming/delete_complete.php?");
 }

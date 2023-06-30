@@ -5,6 +5,13 @@ html *,
 ::after {
   box-sizing: border-box;
 }
+
+.search_container {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  justify-items: center;
+}
+
 table {
   margin:10px auto;
   border-collapse: collapse;

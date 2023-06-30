@@ -24,7 +24,7 @@ session_start();
                             } elseif ($_GET['st'] == "confirm") {
                                 echo "データの呼び出しに失敗しました";
                             } elseif ($_GET['st'] == "authority") {
-                                echo "管理者権限のアカウントではないため、表示できませんでした";
+                                echo "権限がありません";
                             }
                         } else {
                             echo "エラー画面";
