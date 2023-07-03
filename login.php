@@ -69,25 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include(dirname(__FILE__).'/common/header.php'); ?>
     <main>
         <h2>ログイン画面</h2>
-        <form action="" method="POST">
-            <div>
-                <label for="mail" >メールアドレス:</label>
-                <input type="mail" id="mail" name="mail" maxlength="100" value="<?php if(isset($_POST['mail'])){echo $_POST['mail']; } ?>" required>
-            </div>
-            <div>
-                <label for="password">パスワード:</label>
-                <input type="password" id="password" name="password" maxlength="10" value="" required>
-            </div>
-            <div>
-                <input type="submit" value="ログイン">
-            </div>
-            <div>
-                
-                <?php if (isset($error)) { 
-                    echo $error;
-                } ?>
-            </div>
-        </form>
+        <div class="login">
+            <form  action="" method="POST">
+                <div>
+                    <label for="mail" >メールアドレス:</label>
+                    <input type="mail" id="mail" name="mail" maxlength="100" value="<?php if(isset($_POST['mail'])){echo $_POST['mail']; } ?>" required>
+                </div>
+                <div>
+                    <label for="password">パスワード:</label>
+                    <input type="password" id="password" name="password" maxlength="10" value="" required>
+                </div>
+                <div>
+                    <input type="submit" class="submit" value="ログイン">
+                </div>
+                <div>
+                    <?php if (isset($error)) { 
+                        echo $error;
+                    } ?>
+                </div>
+            </form>
+        </div>
 
     </main>
     <footer>

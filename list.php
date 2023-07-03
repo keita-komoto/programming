@@ -13,6 +13,7 @@ try {
     header("Location:http://localhost/diworks/programming/fail.php?st=err");
 }   
 if (isset($_GET['search'])) {
+    extract($_GET, $flags = EXTR_OVERWRITE, $prefix = "");
     $serch_family_name = isset($_GET['family_name']) ? $_GET['family_name'] : '';
     $serch_last_name = isset($_GET['last_name']) ? $_GET['last_name'] : '';
     $serch_family_name_kana = isset($_GET['family_name_kana']) ? $_GET['family_name_kana'] : '';
@@ -20,7 +21,7 @@ if (isset($_GET['search'])) {
     $serch_mail = isset($_GET['mail']) ? $_GET['mail'] : '';
     $serch_gender = isset($_GET['gender']) ? $_GET['gender'] : '';
     $serch_authority = isset($_GET['authority']) ? $_GET['authority'] : '';
-    // クエリの条件部分を構築
+    // クエリの条件部分
     $conditions = [];
     $parameters = [];
 
@@ -94,39 +95,39 @@ if (isset($_GET['search'])) {
             <div class="search_container">
                 <div class="search_left">
                     <label for="family_name">名前（姓）:</label>
-                    <input type="text" name="family_name" id="family_name">
+                    <input type="text" name="family_name" id="family_name" value="<?php if(isset($family_name)) {echo $family_name ;} ?>">
                 </div>
                 <div class="search_right">
                     <label for="last_name">名前（名）:</label>
-                    <input type="text" name="last_name" id="last_name">
+                    <input type="text" name="last_name" id="last_name" value="<?php if(isset($last_name)) {echo $last_name ;} ?>">
                 </div>
                 <div class="search_left">
                     <label for="family_name_kana">カナ（姓）:</label>
-                    <input type="text" name="family_name_kana" id="family_name_kana">
+                    <input type="text" name="family_name_kana" id="family_name_kana" value="<?php if(isset($family_name_kana)) {echo $family_name_kana ;} ?>">
                 </div>
                 <div class="search_right">
                     <label for="last_name_kana">カナ（名）:</label>
-                    <input type="text" name="last_name_kana" id="last_name_kana">
+                    <input type="text" name="last_name_kana" id="last_name_kana" value="<?php if(isset($last_name_kana)) {echo $last_name_kana ;} ?>">
                 </div>
                 <div class="search_right">
                     <label for="mail">メールアドレス:</label>
-                    <input type="text" name="mail" id="mail">
+                    <input type="text" name="mail" id="mail" value="<?php if(isset($mail)) {echo $mail ;} ?>">
                 </div>
                 <div class="search_right">
                     <label for="gender">性別:</label>
-                    <input type="radio" name="gender" id="male" value="0" checked>
+                    <input type="radio" name="gender" id="male" value="0" <?php if(isset($gender) && $gender === "0"){echo "checked";} ?>>
                     <label for="male">男</label>
-                    <input type="radio" name="gender" id="female" value="1">
+                    <input type="radio" name="gender" id="female" value="1" <?php if(isset($gender) && $gender === "1"){echo "checked";} ?>>
                     <label for="female">女</label>
-                    <input type="radio" name="gender" id="female" value="" checked>
+                    <input type="radio" name="gender" id="female" value="" <?php if(isset($gender) && $gender === "") {echo "checked";} ?>>
                     <label for="female">未選択</label>
                 </div>
                 <div class="search_right">
                     <label for="authority">アカウント権限:</label>
                     <select name="authority" id="authority">
                         <option value="" selected>未選択</option>
-                        <option value="0">一般</option>
-                        <option value="1">管理者</option>
+                        <option value="0" <?php if(isset($authority) && $authority == 0 ){echo 'selected';} ?>>一般</option>
+                        <option value="1" <?php if(isset($authority) && $authority == 1 ){echo 'selected';} ?>>管理者</option>
                     </select>
                 </div>
                 <div>

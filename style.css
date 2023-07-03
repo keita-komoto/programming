@@ -92,6 +92,14 @@ h4 {
     margin-top: 5px;
     font-size: 0.75em;
 }
+.login {
+    margin: 0 auto;
+    width: 70%;
+}
+.login form div {
+    width: 50%;
+    margin: 0 auto;
+}
 .kakiko-box,.kiji {
     margin: 0 auto 10px;
     padding-left: 10px;
