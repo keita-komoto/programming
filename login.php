@@ -22,9 +22,10 @@ function login() {
         $stmt->bindValue(':mail', $mail);
         $stmt->execute();
         $db = $stmt->fetch(PDO::FETCH_ASSOC);
-        if (isset($db)) {
+        if (!empty($db)) {
+            var_dump($db);
             $db_password = $db['password'];
-            var_dump($db_password);
+
             // ログイン成功の場合はセッションに渡す
             if (password_verify( $password, $db_password,)) {
                 $_SESSION['login_id'] = $db['id'];
@@ -72,11 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login">
             <form  action="" method="POST">
                 <div>
-                    <label for="mail" >メールアドレス:</label>
+                    <label for="mail" >メールアドレス</label>
                     <input type="mail" id="mail" name="mail" maxlength="100" value="<?php if(isset($_POST['mail'])){echo $_POST['mail']; } ?>" required>
                 </div>
                 <div>
-                    <label for="password">パスワード:</label>
+                    <label for="password">パスワード</label>
                     <input type="password" id="password" name="password" maxlength="10" value="" required>
                 </div>
                 <div>
