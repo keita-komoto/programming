@@ -20,7 +20,7 @@ session_start();
                     <h3 class="error">
                         <?php if (isset($_GET['st'])) {
                             if ($_GET['st'] == "err" ) {
-                                echo "データの呼び出しに失敗しました";
+                                echo "データベースの接続に失敗しました";
                             } elseif ($_GET['st'] == "confirm") {
                                 echo "データの呼び出しに失敗しました";
                             } elseif ($_GET['st'] == "authority") {

@@ -1,11 +1,15 @@
 <?php
 session_start();
+try {
     $pdo = new PDO(
         'mysql:dbname=lesson01;host=localhost;charset=utf8mb4',
         'root',
         '',
     );
     $stmt = $pdo->query("SELECT * FROM diworks_keijiban");
+} catch (PDOException $e) {
+    header("Location:http://localhost/diworks/programming/fail.php?st=err");
+}   
 ?>
 
 <!DOCTYPE html>

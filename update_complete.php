@@ -1,9 +1,14 @@
 <?php
 session_start();
-if (isset($_SESSION['login_auth'])) {
-    if (!$_SESSION['login_auth'] == 1) {
-        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+//権限判別
+if ($_SESSION['login_auth'] == 1 ) {
+    if (isset($_SESSION['family_name'])){
+        extract($_SESSION, $flags = EXTR_OVERWRITE, $prefix = "");
+    } else {
+        header("Location:http://localhost/diworks/programming/fail.php?st=confirm");
     }
+} elseif (!$_SESSION['login_auth'] == 1) {
+    header("Location:http://localhost/diworks/programming/fail.php?st=authority");
 }
 ?>
 <!DOCTYPE html>

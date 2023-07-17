@@ -6,6 +6,7 @@ function myExceptionHandler ($e) {
 }
 set_exception_handler('myExceptionHandler');
 
+
 if(isset($_POST['id'])) {
     $id = $_POST['id'];
 }

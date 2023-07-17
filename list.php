@@ -1,10 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION['login_auth'])) {
-    if ($_SESSION['login_auth'] === 0) {
-        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
-    }
+
+//権限判別
+if ($_SESSION['login_auth'] == 1 ) {
+
+} elseif (!$_SESSION['login_auth'] == 1) {
+    header("Location:http://localhost/diworks/programming/fail.php?st=authority");
 }
+
 try {
     $pdo = new PDO(
         'mysql:dbname=programming;host=localhost;charset=utf8mb4','root','',
@@ -131,8 +134,8 @@ if (isset($_GET['search'])) {
                     </select>
                 </div>
                 <div>
-                    <input type="submit" name="list" value="全件表示"> 
                     <input type="submit" name="search" value="検索">
+                    <input type="submit" name="list" value="全件表示"> 
                 </div>
             </div>
         </form>
@@ -152,43 +155,58 @@ if (isset($_GET['search'])) {
                 <th colspan="2">操作</th>
             </tr>
             <?php 
-                if (isset($sql)) {
-                    while ($account = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        echo '<tr>';
-                        echo '<td>' . $account['id'] . '</td>';
-                        echo '<td>' . $account['family_name'] . '</td>';
-                        echo '<td>' . $account['last_name'] . '</td>';
-                        echo '<td>' . $account['family_name_kana'] . '</td>';
-                        echo '<td>' . $account['last_name_kana'] . '</td>';
-                        echo '<td class="mail">' . $account['mail'] . '</td>';
-                        echo '<td>' . ($account['gender'] == 0 ? '男' : '女') . '</td>';
-                        echo '<td>' . ($account['authority'] == 0 ? '一般' : '管理者') . '</td>';
-                        echo '<td>' . ($account['delete_flag'] == 0 ? '有効' : '無効') . '</td>';
-                        echo '<td>' . date('Y/m/d', strtotime($account['registered_time'])) . '</td>';
-                        echo '<td>';
-                        if ($account['update_time'] == '0000-00-00 00:00:00') {
-                            echo '更新履歴なし';
-                        } else {
-                            echo date('Y/m/d', strtotime($account['update_time']));
-                        }
-                        echo '</td>';
-                        if ($account['delete_flag'] == 0){
+                if (isset($_GET['search']) || isset($_GET['list'])) {
+                    if (isset($sql)) {
+                        $accountExists = false; // 初期値を設定
+                        while ($account = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                            echo '<tr>';
+                            echo '<td>' . $account['id'] . '</td>';
+                            echo '<td>' . $account['family_name'] . '</td>';
+                            echo '<td>' . $account['last_name'] . '</td>';
+                            echo '<td>' . $account['family_name_kana'] . '</td>';
+                            echo '<td>' . $account['last_name_kana'] . '</td>';
+                            echo '<td class="mail">' . $account['mail'] . '</td>';
+                            echo '<td>' . ($account['gender'] == 0 ? '男' : '女') . '</td>';
+                            echo '<td>' . ($account['authority'] == 0 ? '一般' : '管理者') . '</td>';
+                            echo '<td>' . ($account['delete_flag'] == 0 ? '有効' : '無効') . '</td>';
+                            echo '<td>' . date('Y/m/d', strtotime($account['registered_time'])) . '</td>';
                             echo '<td>';
-                                echo '<form method="post" action="update.php?edit=1">';
-                                    echo '<input type="hidden" value="' . $account['id'] . '" name="id">';
-                                    echo '<input type="submit" class="submit" name="submit" value="更新する">';
-                                echo '</form>';
+                            if ($account['update_time'] == '0000-00-00 00:00:00') {
+                                echo '更新履歴なし';
+                            } else {
+                                echo date('Y/m/d', strtotime($account['update_time']));
+                            }
                             echo '</td>';
-                            echo '<td>';
-                                echo '<form method="post" action="delete.php">';
-                                    echo '<input type="hidden" value="' . $account['id'] . '" name="id">';
-                                    echo '<input type="submit" class="submit" name="submit" value="削除する">';
-                                echo '</form>';
-                        } else {
-                            echo '<td colspan="2">削除済み</td>';
+                            if ($account['delete_flag'] == 0){
+                                echo '<td>';
+                                    echo '<form method="post" action="update.php?edit=1">';
+                                        echo '<input type="hidden" value="' . $account['id'] . '" name="id">';
+                                        echo '<input type="submit" class="submit" name="submit" value="更新する">';
+                                    echo '</form>';
+                                echo '</td>';
+                                echo '<td>';
+                                    echo '<form method="post" action="delete.php">';
+                                        echo '<input type="hidden" value="' . $account['id'] . '" name="id">';
+                                        echo '<input type="submit" class="submit" name="submit" value="削除する">';
+                                    echo '</form>';
+                            } else {
+                                echo '<td colspan="2">削除済み</td>';
+                            }
+                            echo '</tr>';
+                            $accountExists = true; // レコードが存在する場合にフラグを更新
                         }
-                        echo '</tr>';
+                        if (!$accountExists) {
+                            echo '<tr>';
+                            echo '<td colspan="13">' . "条件に一致するアカウントがありませんでした" . '</td>';
+                            echo '</tr>';
+                        }
                     }
+                } elseif (empty($_GET)) {
+                echo '<tr>';
+                echo '<td colspan="12">' . "検索してください" . '</td>';
+                echo '</tr>';
+                } else {
+                    echo "a";
                 }
             $pdo = null; ?>
         </table>

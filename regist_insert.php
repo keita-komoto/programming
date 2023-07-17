@@ -1,11 +1,19 @@
 <?php
 session_start();
+
+// 権限判別
+if ($_SESSION['login_auth'] == 1 ) {
+
+} elseif (!$_SESSION['login_auth'] == 1) {
+    header("Location:http://localhost/diworks/programming/fail.php?st=authority");
+}
+
 function myExceptionHandler ($e) {
     header("Location:http://localhost/diworks/programming/regist_fail.php");
 }
 set_exception_handler('myExceptionHandler');
 
-if ( isset($_SESSION['family_name'])){
+if (isset($_SESSION['family_name'])){
     $family_name = $_SESSION['family_name'];
     $last_name = $_SESSION['last_name'];
     $family_name_kana = $_SESSION['family_name_kana'];

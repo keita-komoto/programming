@@ -22,7 +22,7 @@ if (isset($_SESSION['login_auth'])) {
                 <h2>アカウント削除完了画面</h2>
                 <div class="kanryo">
                     <?php if(isset($_GET['success'])) {
-                        echo "<h3 class=\"dai\">登録完了しました</h3>";
+                        echo "<h3 class=\"dai\">削除完了しました</h3>";
                     } else {
                         echo '<h3 class="error">エラーが発生したためアカウント削除できません。</h3>';
                     } ?>

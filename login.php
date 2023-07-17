@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (isset($_SESSION['login_auth'])) {
-    if (!$_SESSION['login_auth'] == 1) {
-        header("Location:http://localhost/diworks/programming/fail.php?st=authority");
-    }
-}
+
+// セッション変数を全て解除する
+$_SESSION = array();
+
+
 function login() {
     // POSTを変数に
     $mail = $_POST['mail'];
