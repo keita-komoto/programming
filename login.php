@@ -23,7 +23,6 @@ function login() {
         $stmt->execute();
         $db = $stmt->fetch(PDO::FETCH_ASSOC);
         if (!empty($db)) {
-            var_dump($db);
             $db_password = $db['password'];
 
             // ログイン成功の場合はセッションに渡す
@@ -42,13 +41,11 @@ function login() {
         // レコードが存在しない場合の処理
         $error = "メールアドレスが見つかりませんでした";
         return $error;
-        //var_dump($error);
         }
     } catch (PDOException $error) {
         $error = "エラーが発生したためログイン情報を取得できません。";
         return $error;
     }
-    //var_dump($db);
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     login();
