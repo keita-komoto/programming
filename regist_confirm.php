@@ -41,7 +41,7 @@ $pref_array = array('北海道','青森県','岩手県','宮城県','秋田県',
 <body>
     <?php include(dirname(__FILE__).'/common/header.php'); ?>
     <main>
-        <h2>アカウント削除画面</h2>
+        <h2>アカウント登録確認画面</h2>
         <div class="confirm">
             <div class="reg_box">
                 <div class="reg_left">
