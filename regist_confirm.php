@@ -24,6 +24,7 @@ if ( isset($_SESSION['family_name'])){
 }
 if (isset($_POST['submit'])) {
     $_SESSION = $_POST;
+    $_SESSION['login_auth'] = 1;
     header("Location:http://localhost/diworks/programming/regist.php?action=edit");
 }
 

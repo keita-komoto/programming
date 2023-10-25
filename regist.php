@@ -4,7 +4,7 @@ session_start();
 // 権限判別
 if ($_SESSION['login_auth'] == 1 ) {
 
-} elseif (!$_SESSION['login_auth'] == 1) {
+} else {
     header("Location:http://localhost/diworks/programming/fail.php?st=authority");
 }
 
